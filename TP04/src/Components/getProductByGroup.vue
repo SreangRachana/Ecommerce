@@ -1,0 +1,33 @@
+<template>
+  <div>
+    <h1>Get Products by Group {{ groupName }}</h1>
+    <ul>
+      <li v-for="product in ProductsbyGroup" :key="product.id">
+        {{ product.name }} - Sold: {{ product.countSold }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { useProductStore } from "@/stores/product"; 
+
+export default {
+  data() {
+    return {
+      groupName: "fruits", 
+    };
+  },
+  computed: {
+
+    ProductsbyGroup() {
+      const store = useProductStore();
+      return store.getProductsByGroup(this.groupName); 
+    },
+  },
+  mounted() {
+    const store = useProductStore();
+    store.fetchProduct(); 
+  },
+};
+</script>
